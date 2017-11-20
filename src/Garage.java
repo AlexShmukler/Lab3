@@ -2,35 +2,34 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-;
-public class Buses {
-    private List<Bus> garage;
+
+public class Garage {
+    private List<Bus> buses;
     private int capacity;
     private String location;
 
-    public Buses(){
+    public Garage(){
         this.capacity = 10;
         this.location = "Main Str. 32";
-        this.garage = new ArrayList<Bus>();
+        this.buses = new ArrayList<Bus>();
     }
-    public Buses(int capacity, String location, int employers){
+    public Garage(int capacity, String location){
         if ((!(capacity > 1 | capacity < 20))) throw new IllegalArgumentException("Wrong input(1 < capacity < 20)");
-        if ((!(employers > 1 | employers < 50))) throw new IllegalArgumentException("Wrong input(1 < employers < 50)");
         this.capacity = capacity;
         this.location = location;
-        this.garage = new ArrayList<Bus>();
+        this.buses = new ArrayList<Bus>();
     }
 
-    public Buses(int capacity, String location, List<Bus>garage, int employers){
+    public Garage(int capacity, String location, List<Bus> buses){
         this.location = location;
         this.capacity = capacity;
-        this.garage = garage;
+        this.buses = buses;
     }
 
     public void deleteBus(String number){
-        for(Bus i: this.garage){
+        for(Bus i: this.buses){
             if(i.getNumber().equals(number)) {
-                this.garage.remove(i);
+                this.buses.remove(i);
                 return;
             }
             throw new RuntimeException("Product with this number not found, try another bus number");
@@ -39,7 +38,7 @@ public class Buses {
 
     public List<Bus> busesInAlphabeticalOrder(){
         List<Bus> garage = new ArrayList<>();
-        List<Bus> tempGarage = this.garage;
+        List<Bus> tempGarage = this.buses;
         List<String> temp1 = new ArrayList<>();
         for (Bus bus : tempGarage)
             temp1.add(bus.getNumber());
@@ -55,27 +54,37 @@ public class Buses {
     }
 
     public List<Bus> busesSort(){
-        Bus tempBus;
-        List<Bus> garage = new ArrayList<>();
-        List<Bus> tempGarage = this.garage;
-        int min_capacity = 15;
-        for(int i=0; i < this.garage.size();i++) {
+        List<Bus> resultGarage = new ArrayList<>();
+        List<Bus> tempGarage = this.buses;
+        Garage temp = new Garage();
+        int min_capacity = 201;
+        for(int i = 0; i < this.buses.size()+1; i++) {
             for (Bus bus : tempGarage) {
-                if (bus.getCapacity() < min_capacity) {
-                    min_capacity = bus.getCapacity();
-                    tempBus = bus;
+                if (bus.getCapacity() < min_capacity)
+                         min_capacity = bus.getCapacity();
+            }
+            for(int j=0; j<tempGarage.size(); j++){
+                if(tempGarage.get(j).getCapacity() == min_capacity) {
+                    temp.buses.add(tempGarage.get(j));
+                    tempGarage.remove(j);
+
                 }
             }
+            temp.buses = temp.busesInAlphabeticalOrder();
+            resultGarage.addAll(temp.buses);
+            temp.buses.removeAll(buses);
+            min_capacity = 201;
         }
-        return garage;
+
+        return resultGarage;
     }
     public void addBus(Bus bus){
-        this.garage.add(bus);
+        this.buses.add(bus);
     }
 
     public boolean isEnoughtBuses(int people){
         int allPeople=0;
-        for(Bus i:this.garage){
+        for(Bus i:this.buses){
             allPeople+=i.getCapacity();
         }
         return allPeople>=people;
@@ -85,7 +94,7 @@ public class Buses {
     public int hashCode() {
         int result = capacity * 31;
         result+=location.hashCode();
-        result+=garage.hashCode();
+        result+= buses.hashCode();
         return result;
     }
 
@@ -95,16 +104,16 @@ public class Buses {
             return true;
         if(this.getClass()!=obj.getClass())
             return false;
-        Buses temp = (Buses)obj;
-        return ( (this.capacity==temp.capacity) || (this.location==temp.location) || (this.garage==temp.garage));
+        Garage temp = (Garage)obj;
+        return ( (this.capacity==temp.capacity) || (this.location==temp.location) || (this.buses ==temp.buses));
     }
 
-    public List<Bus> getGarage() {
-        return garage;
+    public List<Bus> getBuses() {
+        return buses;
     }
 
-    public void setGarage(List<Bus> garage) {
-        this.garage = garage;
+    public void setBuses(List<Bus> buses) {
+        this.buses = buses;
     }
 
     public int getCapacity() {
@@ -124,7 +133,7 @@ public class Buses {
     }
 
     public int getAmountOfBuses(){
-        return this.garage.size();
+        return this.buses.size();
     }
 
 
