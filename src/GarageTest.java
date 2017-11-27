@@ -44,7 +44,7 @@ public class GarageTest {
         Garage sortedGarage = new Garage(15,"adsfas");
         sortedGarage.addBus(bus2);
         sortedGarage.addBus(bus1);
-        return new Object[][]{ {garage1,sortedGarage}};
+        return new Object[][]{ {garage1,sortedGarage}, {sortedGarage,sortedGarage}};
     }
 
     @Test(dataProvider = "busesSortProvider")

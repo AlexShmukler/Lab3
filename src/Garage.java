@@ -1,7 +1,9 @@
+import com.sun.corba.se.impl.oa.poa.ActiveObjectMap;
+
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 
 public class Garage {
     private List<Bus> buses;
@@ -18,6 +20,7 @@ public class Garage {
         this.capacity = capacity;
         this.location = location;
         this.buses = new ArrayList<Bus>();
+
     }
 
     public Garage(int capacity, String location, List<Bus> buses){
@@ -54,26 +57,25 @@ public class Garage {
     }
 
     public List<Bus> busesSort(){
-        List<Bus> resultGarage = new ArrayList<>();
-        List<Bus> tempGarage = this.buses;
-        Garage temp = new Garage();
-        int min_capacity = 201;
-        for(int i = 0; i < this.buses.size()+1; i++) {
-            for (Bus bus : tempGarage) {
-                if (bus.getCapacity() < min_capacity)
-                         min_capacity = bus.getCapacity();
-            }
-            for(int j=0; j<tempGarage.size(); j++){
-                if(tempGarage.get(j).getCapacity() == min_capacity) {
-                    temp.buses.add(tempGarage.get(j));
-                    tempGarage.remove(j);
+        List<Bus> resultGarage = new ArrayList<Bus>();
+        List<Bus> tempGarage = new ArrayList<Bus>();
+        for(Bus bus : this.buses)
+            tempGarage.add(bus);
+        int min = 201;
 
+        for(int i=0;i<this.buses.size();i++){
+            for(int j=0;j<tempGarage.size();j++){
+                if(tempGarage.get(j).getCapacity() < min)
+                    min = tempGarage.get(j).getCapacity();
+            }
+            for(int j=0;j<tempGarage.size();j++){
+                if(tempGarage.get(j).getCapacity() == min){
+                    resultGarage.add(tempGarage.get(j));
+                    tempGarage.remove(j);
+                    j--;
                 }
             }
-            temp.buses = temp.busesInAlphabeticalOrder();
-            resultGarage.addAll(temp.buses);
-            temp.buses.removeAll(buses);
-            min_capacity = 201;
+            min=201;
         }
 
         return resultGarage;

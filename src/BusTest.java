@@ -3,6 +3,8 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
+
 import static org.testng.Assert.*;
 
 public class BusTest {
@@ -42,7 +44,11 @@ public class BusTest {
     }
 
     @Test(dataProvider = "isEnoughtSpaceProvider")
-    public void isEnoughtSpaceTest(Bus bus, int people, boolean result){
+    public void isEnoughtSpaceTest(Bus bus, int people, boolean result) {
         assertEquals(bus.isEnoughtSpace(people),result);
+    }
+    @Test
+    public void toTextFileTest() throws IOException {
+        bus1.writeObjectToFile(bus1);
     }
 }
