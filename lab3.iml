@@ -45,11 +45,10 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="jdom-2.0.6-contrib" level="project" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../libs/jdom-2.0.6-junit.jar!/" />
+          <root url="jar://$MODULE_DIR$/../libs/xstream-1.4.10.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -58,10 +57,23 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../libs/jdom-2.0.6.jar!/" />
+          <root url="jar://$MODULE_DIR$/../libs/com.fasterxml.jackson.databind.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../libs" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../libs" />
+        </SOURCES>
+        <jarDirectory url="file://$MODULE_DIR$/../libs" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/../libs" recursive="false" type="SOURCES" />
       </library>
     </orderEntry>
   </component>
